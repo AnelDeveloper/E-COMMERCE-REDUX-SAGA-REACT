@@ -1,62 +1,51 @@
-import React from 'react';
+import React , {useState} from 'react';
 import FormInput from '../form-input/form-input';
-import './sing-in.scss';
+import './sing-in..scss';
 
-import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
+import {  signInWithGoogle } from '../../firebase/firebase.utils';
 
 import Button from '../buttom-component/buttom-comp';
 
 
 
 
-class SignIn extends React.Component{
-    constructor(props){
-        super(props);
+const  SignIn =  ({ emailSignInStart, googleSingInStart }) => {
 
-        this.state = {
-            email: '',
-            password: ''
-        }
-    }
+    const [userDetails, setUserDetails] = useState({
+         email: '',
+          password: '' })
+
+    const { email , password } = userDetails; 
 
 
-handleSubmit = async event => {
+const handleSubmit = async event => {
     event.preventDefault();
 
-    const { email , password } = this.state;
 
-    try { 
-        await auth.signInWithEmailAndPassword(email, password);
-        this.setState({ email: '', password: ''});
-
-    } catch(error) {
-        console.log(error);
-
-    }
+    emailSignInStart(email, password)
 
 
 };
 
-handleChange = event => {
+const handleChange = event => {
     const { value, name } = event.target;
 
-    this.setState({ [name]: value })
+    setUserDetails({...userDetails, [name]: value })
 
 };
 
-render() {
     return (
         <div className='sign-in'> 
         <h2>I already Have Account</h2>
         <span>Sign in with your email and password</span>
 
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
 
         <FormInput 
         name="email"  
         type="email" 
-        handleChange={this.handleChange}
-        value={this.state.email} 
+        handleChange={handleChange}
+        value={email} 
         label='email'
         required />
         
@@ -64,8 +53,8 @@ render() {
         <FormInput
          name="password"  
          type="password" 
-         value={this.state.password}
-         handleChange={this.handleChange}
+         value={password}
+         handleChange={handleChange}
          label='password'
          required />
         
@@ -79,7 +68,6 @@ render() {
         
         </div>
     );
-};
 };
 
 export default SignIn;

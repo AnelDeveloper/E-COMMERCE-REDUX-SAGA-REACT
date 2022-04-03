@@ -29,9 +29,6 @@ const Header = ({currentUser , hidden }) => (
 
     <Logo className='logo'> </Logo>
 
-
-    
-    
     </Link>
 
     <div className='options'>

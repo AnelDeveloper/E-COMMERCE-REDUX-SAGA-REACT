@@ -1,11 +1,8 @@
- import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
+const izaberiUsera = (container) => container.user;
 
- const izaberiUsera = kontejner => kontejner.user;
-
-
- export const izberiTrenutnogUsera = createSelector(
-     [izaberiUsera],
-     user => user.trenutniKorisnik
-
- );
+export const izberiTrenutnogUsera = createSelector(
+  [izaberiUsera],
+  (user) => user.currentUser
+);
